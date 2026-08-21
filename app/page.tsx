@@ -1,67 +1,17 @@
 "use client";
 import { Masonry } from "@mui/lab";
+import { LinkedIn, GitHub, Mail } from "@mui/icons-material";
 import Image from "next/image";
 import { PropsWithChildren, useEffect, useState } from "react";
+import ProjectCard, { Project } from "./components/ProjectCard";
+import Bubble from "./components/Bubble";
 
-const apiURL = "https://fullstack-8ksk.onrender.com/";
-
-type Project = {
-  name: string;
-  title: string;
-  releaseYear: string;
-  thumbnailPath?: string;
-  description: string;
-  languages: string[];
-};
-
-interface BubbleProps extends PropsWithChildren {
-  selected?: boolean;
-  onClick?: () => void;
-}
-
-function Bubble({ children, selected, onClick }: BubbleProps) {
-  const colour = selected ? "bg-blue-900 border-2" : "bg-blue-950";
-  return (
-    <div
-      className={"py-1 px-3 rounded-4xl shrink hover:bg-blue-800 " + colour}
-      onClick={onClick}>
-      {children}
-    </div>
-  );
-}
+export const apiURL = "https://fullstack-8ksk.onrender.com/";
 
 export default function Home() {
   const [projects, SetProjects] = useState<Project[]>([]);
   const [languages, SetLanguages] = useState<string[]>([]);
   const [filter, SetFilter] = useState<string>("");
-
-  function GetProjects() {
-    return projects
-      .filter((project) => filter == "" || project.languages.includes(filter))
-      .map((project) => (
-        <div key={project.name} className="bg-gray-900 rounded-md p-4 flex flex-col">
-          <div className="mb-3">
-            <h3 className="font-bold text-xl mb-2">{project.name}</h3>
-            <h4 className="font-semibold text-lg ps-4">{project.title}</h4>
-          </div>
-          {project.thumbnailPath != undefined ? (
-            <Image
-              src={apiURL + "images/" + project.thumbnailPath}
-              alt={"Thumbnail for " + project.name}
-              width={300}
-              height={150}
-              className="self-center"
-            />
-          ) : null}
-          <p>{project.description}</p>
-          <div className="flex flex-row flex-wrap gap-2 mt-3">
-            {project.languages.map((lang) => (
-              <Bubble key={lang}>{lang}</Bubble>
-            ))}
-          </div>
-        </div>
-      ));
-  }
 
   async function FetchPortfolioData(): Promise<Project[]> {
     const langs: string[] = [];
@@ -75,7 +25,6 @@ export default function Home() {
     await fetch(apiURL + "api/games")
       .then((res) => res.json())
       .then((projRes: Project[]) => {
-        projRes.forEach((project) => (project.languages = ["Unity", "C#"]));
         projRes.forEach((project) => projs.push(project));
       });
 
@@ -96,16 +45,18 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col flex-1 items-center justify-center font-sans bg-mist-950">
-      <main className="flex flex-1 w-full max-w-7xl flex-col items-center justify-between py-16 px-16  sm:items-start">
-        <div className="flex flex-row items-baseline gap-5 mb-16">
+    <div className="flex flex-col flex-1 items-center justify-center font-sans bg-mist-950 h-full">
+      <main className="flex flex-1 w-full max-w-7xl flex-col items-center justify-between pt-16 px-16 gap-16 sm:items-start h-full">
+        {/*Title*/}
+        <div className="flex flex-row items-baseline gap-5">
           <h1 className="text-4xl/7 font-bold text-white">Spencer Dowie</h1>
           <h2 className="text-2xl/7 font-bold text-white">
             Full-Stack Web Developer
           </h2>
         </div>
-        <div className="flex flex-row">
-          <div className="flex flex-col flex-1">
+        <div className="flex flex-row items-start min-h-0 flex-wrap gap-16">
+          {/*Left Column*/}
+          <div className="flex flex-col flex-1 max-w-100 lg:h-full md:shrink">
             <h2 className="text-2xl font-bold">About Me</h2>
             <p>
               A web developer with a background in game programming. I have 2+
@@ -113,8 +64,29 @@ export default function Home() {
               experience in game programming as part of an indie game studio
               that I co-founded.
             </p>
+            <div className="flex gap-6 lg:mt-auto mb-10">
+              <a
+                className="text-lg font-semibold"
+                href="https://www.linkedin.com/in/spencer-dowie/">
+                <LinkedIn />
+                LinkedIn
+              </a>
+              <a
+                className="text-lg font-semibold"
+                href="https://github.com/spencerdowie">
+                <GitHub />
+                GitHub
+              </a>
+              <a
+                className="text-lg font-semibold"
+                href="mailto:spencer.dowie@hotmail.com">
+                <Mail />
+                Email
+              </a>
+            </div>
           </div>
-          <div className="flex flex-col flex-2">
+          {/*Right Column*/}
+          <div className="flex flex-col flex-2 h-full">
             <h2 className="text-2xl font-bold mb-3">Projects</h2>
             <div className="flex flex-row mx-2 mb-3 gap-2">
               {languages.map((language) => {
@@ -131,9 +103,18 @@ export default function Home() {
                 );
               })}
             </div>
-            <Masonry columns={2} spacing={3}>
-              {GetProjects()}
-            </Masonry>
+            <div className="overflow-y-auto">
+              <Masonry columns={{ xs: 1, sm: 2 }} spacing={3}>
+                {projects
+                  .filter(
+                    (project) =>
+                      filter == "" || project.languages.includes(filter)
+                  )
+                  .map((project) => (
+                    <ProjectCard key={project.name} project={project} />
+                  ))}
+              </Masonry>
+            </div>
           </div>
         </div>
       </main>
