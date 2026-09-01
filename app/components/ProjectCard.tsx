@@ -1,10 +1,9 @@
 import Image from "next/image";
 import Bubble from "./Bubble";
-import { apiURL } from "../page";
 
 export type Project = {
   name: string;
-  title: string;
+  title?: string;
   releaseYear: string;
   thumbnailPath?: string;
   description: string;
@@ -29,7 +28,7 @@ export default function ProjectCard({ project }: { project: Project }) {
       </div>
       {project.thumbnailPath != undefined ? (
         <Image
-          src={apiURL + "images/" + project.thumbnailPath}
+          src={"/images/" + project.thumbnailPath}
           alt={"Thumbnail for " + project.name}
           width={300}
           height={150}

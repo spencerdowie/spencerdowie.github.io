@@ -1,47 +1,28 @@
 "use client";
 import { Masonry } from "@mui/lab";
 import { LinkedIn, GitHub, Mail } from "@mui/icons-material";
-import Image from "next/image";
-import { PropsWithChildren, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ProjectCard, { Project } from "./components/ProjectCard";
 import Bubble from "./components/Bubble";
-
-export const apiURL = "https://fullstack-8ksk.onrender.com/";
+import data from "@/public/projects.json";
 
 export default function Home() {
   const [projects, SetProjects] = useState<Project[]>([]);
   const [languages, SetLanguages] = useState<string[]>([]);
   const [filter, SetFilter] = useState<string>("");
 
-  async function FetchPortfolioData(): Promise<Project[]> {
-    const langs: string[] = [];
-    const projs: Project[] = [];
-    await fetch(apiURL + "api/web")
-      .then((res) => res.json())
-      .then((projRes: Project[]) => {
-        projRes.forEach((project) => projs.push(project));
-      });
-
-    await fetch(apiURL + "api/games")
-      .then((res) => res.json())
-      .then((projRes: Project[]) => {
-        projRes.forEach((project) => projs.push(project));
-      });
-
-    return projs;
-  }
-
   useEffect(() => {
     const langs: string[] = [];
-    FetchPortfolioData().then((projs) => {
-      projs.forEach((project) =>
-        project.languages.forEach((lang) => {
-          if (!langs.includes(lang)) langs.push(lang);
-        })
-      );
-      SetLanguages(langs);
-      SetProjects(projs);
-    });
+    const projs: Project[] = data;
+
+    projs.forEach((project) =>
+      project.languages.forEach((lang) => {
+        if (!langs.includes(lang)) langs.push(lang);
+      }),
+    );
+
+    SetLanguages(langs);
+    SetProjects(projs);
   }, []);
 
   return (
@@ -67,19 +48,22 @@ export default function Home() {
             <div className="flex gap-6 lg:mt-auto mb-10">
               <a
                 className="text-lg font-semibold"
-                href="https://www.linkedin.com/in/spencer-dowie/">
+                href="https://www.linkedin.com/in/spencer-dowie/"
+              >
                 <LinkedIn />
                 LinkedIn
               </a>
               <a
                 className="text-lg font-semibold"
-                href="https://github.com/spencerdowie">
+                href="https://github.com/spencerdowie"
+              >
                 <GitHub />
                 GitHub
               </a>
               <a
                 className="text-lg font-semibold"
-                href="mailto:spencer.dowie@hotmail.com">
+                href="mailto:spencer.dowie@hotmail.com"
+              >
                 <Mail />
                 Email
               </a>
@@ -97,7 +81,8 @@ export default function Home() {
                     selected={isFilter}
                     onClick={() =>
                       isFilter ? SetFilter("") : SetFilter(language)
-                    }>
+                    }
+                  >
                     {language}
                   </Bubble>
                 );
@@ -108,7 +93,7 @@ export default function Home() {
                 {projects
                   .filter(
                     (project) =>
-                      filter == "" || project.languages.includes(filter)
+                      filter == "" || project.languages.includes(filter),
                   )
                   .map((project) => (
                     <ProjectCard key={project.name} project={project} />

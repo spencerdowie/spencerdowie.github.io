@@ -1,0 +1,40 @@
+[
+  {
+    "name": "The Third Place",
+    "releaseYear": "2024",
+    "url": "https://augex.itch.io/the-third-place",
+    "thumbnailPath": "ThirdPlace_Logo.png",
+    "languages": ["C#", "Unity"],
+    "description": "In our game, 'The Third Place', we are giving players the chance to live in their local coffee shop, to manage and run a third place of their own. Player actions and customer interactions will shape the energy of the space, determining which customers become regulars.\n\nRun the cafe as you like, customize the bar to suit your needs, and enjoy making some tasty drinks for customers!"
+  },
+  {
+    "name": "DEW",
+    "releaseYear": "2026",
+    "url": "https://augex.itch.io/dew",
+    "thumbnailPath": "DEW_Logo.jpg",
+    "languages": ["C#", "Unity"],
+    "description": "In D.E.W., Players become Delta Epsilon Warriors to battle their friends in this multiplayer twin stick shooter.\n\nCompetitors will duke it out in a battle of wits, where it’s not about shooting where your targets are, it’s about shooting where they will be. N.E.O. rifles work a little different than traditional energy blasters. The stream of plasma fired will crawl around the arena and ricochet off walls, leaving a lethal trail behind for others to run into. Players need to think ahead to cut off their opponent’s escape route, leaving them vulnerable to the kill shot.\n\nScore enough kills, or just outlast the competition to secure the victory.\n\nDeny. Eliminate. Win. Join the fight, and become a Delta Epsilon Warrior today."
+  },
+  {
+    "name": "SLIH",
+    "releaseYear": "2020",
+    "url": "https://augex.itch.io/some-like-it-hot",
+    "thumbnailPath": "logo_somelikeithot.png",
+    "description": "Some Like It Hot! puts players behind the counter at a local cafe, trying to make drinks as fast and accurate as possible. During their downtime they have conversations with both co-workers and regulars, navigating relationships with each character.",
+    "languages": ["C#", "Unity"]
+  },
+  {
+    "name": "Unity Health Network VR Study",
+    "releaseYear": "2023",
+    "description": "We helped update a Unity based VR simulation for the next phase of a study as well as creating a custom tool that allowed non-technical researchers to make changes to study itself without using Unity. This tool was created as a standalone application using React.js and Electron. It is a node-based dialogue editor that allows the user to write dialogue, create branching questions, and prompt them with pre-made surveys. The user can then export the completed script and then import it into the existing VR application.",
+    "title": "Lead Programmer",
+    "languages": ["React", "Electron", "TypeScript", "Unity", "C#"]
+  },
+  {
+    "name": "Phish",
+    "releaseYear": "2021",
+    "description": "Phish was a project that I was the main developer for as part of Gamma Space, a co-op game studio, to create an edu-tainment game to provide basic training about phishing emails. It was designed as a trial version that was used by the staff at the client universities and it was then expanded to students in later years.\r\n\r\nWe created an email inbox for a staff member at a fictitious college appear that they could look through. The players had three actions directory (i.e. the names an emails of other staff members), report could mark to explain what they thought was suspicious), or they could reply to the email with a response that we had pre-written.",
+    "title": "Lead Programmer",
+    "languages": ["React", "JavaScript", "Next.js"]
+  }
+]
